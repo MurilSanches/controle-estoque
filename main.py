@@ -1,12 +1,7 @@
-product = {
-    "price": 36,
-    "fixedCost": 0.15,
-    "comission": 0.05,
-    "taxes": 0.12,
-    "profit": 0.20
-}
+import product
 
-def getSalePrice(product):
-    return product["price"] / (1 - (product["fixedCost"] + product["comission"] + product["taxes"] + product["profit"]))
+print("Bem-vindo ao sistema de controle de estoque!\n")
 
-print('preço de venda', getSalePrice(product))
+prod = product.buildProduct(1, "Prod 1", "Description...",\
+                                36.0, 0.15, 0.05, 0.12, 0.20)
+print(prod)
