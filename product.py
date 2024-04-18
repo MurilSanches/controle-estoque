@@ -124,6 +124,7 @@ def showResults(product):
     showLineResult("G. Outros custos (D+E+F)", salePrice * \
                     (product["fixed_adm_cost"] + product["commission"] + product["taxes"]), percentG)
     showLineResult("H. Rentabilidade (C-G)", salePrice * product["profit"], percentH)
+    print("\nClassificação da faixa de lucro:", classifyProfitMargin(product))
 
 def showLineResult(description, value, percent):
     line = description
@@ -134,3 +135,16 @@ def showLineResult(description, value, percent):
     line += (10 - len(percentStr)) * " "
     line += (percentStr + "%")
     print(line)
+
+def classifyProfitMargin(product):
+    profit = product["profit"]
+    if (profit > 0.2):
+        return "Alto"
+    elif (profit > 0.10):
+        return "Lucro médio"
+    elif (profit > 0):
+        return "Lucro baixo"
+    elif (profit == 0):
+        return "Equilíbrio"
+    else:
+        return "Prejuízo"
