@@ -99,3 +99,38 @@ def getSalePrice(product):
     product["sale_price"] = product["cost"] / \
             (1 - (product["fixed_adm_cost"] + product["commission"] + \
             product["taxes"] + product["profit"]))
+
+def showResults(product):
+    salePrice = product["sale_price"]
+    percentB = int(product["cost"] / salePrice * 100)
+    percentC = 100 - percentB
+    percentD = int(product["fixed_adm_cost"] * 100)
+    percentE = int(product["commission"] * 100)
+    percentF = int(product["taxes"] * 100)
+    percentG = percentD + percentE + percentF
+    percentH = percentC - percentG
+    
+    print()
+    print(25*"#", "RESULTADOS", 25*"#")
+    print("\nDescrição", 34*" ", "Valor", 7*" ", "%")
+    print(62*"-")
+    
+    showLineResult("A. Preço de venda", salePrice, "100")
+    showLineResult("B. Custo de Aquisição (Fornecedor)", product["cost"], percentB)
+    showLineResult("C. Receita Bruta (A-B)", salePrice - product["cost"], percentC)
+    showLineResult("D. Custo Fixo/Administrativo", salePrice * product["fixed_adm_cost"], percentD)
+    showLineResult("E. Comissão de Vendas", salePrice * product["commission"], percentE)
+    showLineResult("F. Impostos", salePrice * product["taxes"], percentF)
+    showLineResult("G. Outros custos (D+E+F)", salePrice * \
+                    (product["fixed_adm_cost"] + product["commission"] + product["taxes"]), percentG)
+    showLineResult("H. Rentabilidade (C-G)", salePrice * product["profit"], percentH)
+
+def showLineResult(description, value, percent):
+    line = description
+    valueStr = str("{:.2f}".format(value))
+    percentStr = str(percent)
+    line += (50 - len(description) - len(valueStr)) * " "
+    line += valueStr
+    line += (10 - len(percentStr)) * " "
+    line += (percentStr + "%")
+    print(line)
