@@ -1,4 +1,5 @@
 from mysql.connector import connect
+import product
 
 def getMySQLConnection (server, user, password, bd): 
     if getMySQLConnection.conexao==None:
@@ -21,3 +22,18 @@ def addProduct(connection, prod):
             print("Chave primária duplicada")
         else:
             print("Erro de integridade:", e)
+
+def retrieveProduct(connection, code_id):
+    cursor=connection.cursor()
+    comando = "select * from Produto where codigo = " + str(code_id)
+    valores = (code_id)
+    try:
+        cursor.execute(comando)
+        data = cursor.fetchall()
+        cursor.close()
+        if len(data) > 0:
+            return product.buildProduct(data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6], data[0][7])
+        else:
+            print("O código", code_id, "não representa o código de um produto cadastrado.")
+    except Exception as e:
+        print("Erro:", e)
