@@ -134,7 +134,7 @@ def showLineResult(description, value, percent):
     line += valueStr
     line += (10 - len(percentStr)) * " "
     line += (percentStr + "%")
-    print(line)
+    print(line)
 
 def classifyProfitMargin(product):
     profit = product["profit"]
