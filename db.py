@@ -25,8 +25,7 @@ def addProduct(connection, prod):
 
 def retrieveProduct(connection, code_id):
     cursor=connection.cursor()
-    comando = "select * from Produto where codigo = " + str(code_id)
-    valores = (code_id)
+    comando = "select * from Produto where codigo = " + str(code_id)    
     try:
         cursor.execute(comando)
         data = cursor.fetchall()
@@ -35,5 +34,33 @@ def retrieveProduct(connection, code_id):
             return product.buildProduct(data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6], data[0][7])
         else:
             print("O código", code_id, "não representa o código de um produto cadastrado.")
+    except Exception as e:
+        print("Erro:", e)
+        
+
+def deleteProduct(connection, code_id):
+    cursor=connection.cursor()
+    comando = "delete from Produto where codigo = " + str(code_id)    
+    try:
+        cursor.execute(comando)
+        connection.commit()
+        print("Produto deletado com sucesso!")
+    except Exception as e:
+        print("Erro:", e)
+
+def retrieveAllProducts(connection):
+    cursor=connection.cursor()
+    comando = "select * from Produto"
+    try:
+        cursor.execute(comando)
+        data = cursor.fetchall()
+        cursor.close()
+        if len(data) > 0:
+            products = []
+            for line in data:
+                products.append(product.buildProduct(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7]))
+            return products
+        else:
+            print("Não há produtos cadastrados no sistema.")
     except Exception as e:
         print("Erro:", e)

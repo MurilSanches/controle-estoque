@@ -148,3 +148,24 @@ def classifyProfitMargin(product):
         return "Equilíbrio"
     else:
         return "Prejuízo"
+
+def listAllProducts(products):
+    if products != None:
+        print("Produtos cadastrados no sistema (código - produto):")
+        print(51*"-", "\n")
+        for productLine in products:
+            print(str(productLine["code_id"]) + " - " + productLine["name"])
+        print()
+        print(51*"-", "\n")
+
+def getProductCode(text = "Digite o código do produto que deseja obter dados: "):
+    while True:
+        try:
+            code_id = int(input(text))
+            if (code_id < 1):
+                print("Código inválido. Por favor, tente novamente com um número inteiro positivo!")
+            else:
+                return code_id                
+        except ValueError:
+            print("Código inválido. Por favor, tente novamente com um número inteiro positivo!")
+    
